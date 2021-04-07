@@ -10,6 +10,6 @@ app.use(bodyParser.json());
 
 router.post('/welcome', registration.getRegistration);
 
-router.post('/login', login.customer_login)
+router.post('/login', login.customerLogin)
 
 export default router;

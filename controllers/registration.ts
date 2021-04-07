@@ -7,7 +7,7 @@ import bcrypt from 'bcrypt';
 import sendEmail from './sendMail-configfile';
 import mongoose from 'mongoose';
 import validator from 'validator';
-import Customer from '../models/customer';
+import Customer from '../models/customerRegistrationSchema';
 
 const uuid = uuidv4();
 
@@ -36,27 +36,29 @@ const getRegistration = async (req: Request, res: Response) => {
         let customerPassword = req.body.password;
 
         //hashing of password
-        const password = await bcrypt.hash(customerPassword, 10);
-        console.log('bcrypt password', password);
+        const hashedPassword = await bcrypt.hash(customerPassword, 10);
+        console.log('bcrypt password', hashedPassword);
 
         const customerRegistration = new Customer({
             firstName: req.body.first_name,
             lastName: req.body.last_name,
             email: req.body.email,
-            password: password,
+            password: hashedPassword,
             phoneNumber: req.body.phone_number,
             gender: req.body.gender,
         })
 
         //const result = await customerRegistration.save();
-        Customer.create(customerRegistration, function (err, customer) {
+        Customer.create(customerRegistration,(err, customer) => {
             if (err) {
                 console.log(err);
                 res.status(400).json({ success: false, message: 'Not Registered', data: err.message });
             }
             else {
+                // let responseObject = customer;
+                // delete responseObject["password"];
                 console.log('registered', customer);
-                res.status(200).json({ success: true, message: customer.firstName + ' ' + customer.lastName + 'registered successfully', data: customer })
+                res.status(200).json({ success: true, status_code : 200, message: customer.firstName + ' ' + customer.lastName + ' ' +'registered successfully' })
             }
         });
     }
@@ -69,40 +71,6 @@ const getRegistration = async (req: Request, res: Response) => {
 export = {
     getRegistration
 }
-
-
-
-
-//schema for registration
-// const schema = Joi.object({
-//     first_name: Joi.string().regex(/^[a-z A-Z]{2,20}$/).required(),
-//     last_name: Joi.string().regex(/^[a-z A-Z]{2,20}$/).required(),
-//     email: Joi.string().regex(/^[A-Za-z]{3,}[.][a-z]{2,}@[a-z]{2,}[.]{1}[a-z.]{2,}$/).required(),
-//     password: Joi.string().regex(/^[A-Z a-z 0-9]{3,15}$/).required(),
-//     phone_number: Joi.number().min(10).required(),
-//     gender: Joi.string().regex(/^[a-zA-Z]{4,}$/).required(),
-// });
-
-// const customer_registration = async(req: Request, res: Response) => {
-//     const first_name = req.body.first_name;
-//     const last_name = req.body.last_name;
-//     const cust_password = req.body.password;
-//     const email = req.body.email;
-//     const phone_number = req.body.phone_number;
-//     const gender = req.body.gender;
-//    //validation
-//   const validate = schema.validate(req.body);
-//   if(validate.error) {
-//       res.status(400).json({success: false, message: validate.error.details[0].message, data: []});
-//   }  
-
-//   //hashing of password
-//   const password = await bcrypt.hash(cust_password, 10);
-//   console.log('bcrypt password', password);
-
-
-
-
 
 
   //insertion in db
