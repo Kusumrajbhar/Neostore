@@ -8,7 +8,7 @@ const router = express.Router();
 const app = express();
 app.use(bodyParser.json());
 
-router.post('/welcome', registration.customer_registration);
+router.post('/welcome', registration.getRegistration);
 
 router.post('/login', login.customer_login)
 
