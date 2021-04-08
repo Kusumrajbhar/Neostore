@@ -18,6 +18,8 @@ const customerLogin = (req: Request, res: Response) => {
     try {
         const loginEmail = req.body.email;
         const loginPassword = req.body.password;
+         
+    
 
         Customer.findOne({ email: loginEmail }, (err, result) => {                  //findOne to get one document
             console.log('result', result);

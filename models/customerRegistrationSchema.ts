@@ -26,6 +26,14 @@ const registrationSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    // newpassword: {
+    //     type: String,
+    //     required: true,
+    // },
+    // confirmPassword: {
+    //     type: String,
+    //     required: true,
+    // }
 })
 
 const Customer = mongoose.model<any>("Customer", registrationSchema);

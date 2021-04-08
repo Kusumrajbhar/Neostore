@@ -1,12 +1,9 @@
 import express from 'express';
-//import client from '../models/database';
 import { Request, Response } from 'express';
 import { v4 as uuidv4 } from 'uuid';
-import Joi, { string } from 'joi';
+import Joi from 'joi';
 import bcrypt from 'bcrypt';
 import sendEmail from './sendMail-configfile';
-import mongoose from 'mongoose';
-import validator from 'validator';
 import Customer from '../models/customerRegistrationSchema';
 
 const uuid = uuidv4();
@@ -55,8 +52,13 @@ const getRegistration = async (req: Request, res: Response) => {
                 res.status(400).json({ success: false, message: 'Not Registered', data: err.message });
             }
             else {
-                // let responseObject = customer;
-                // delete responseObject["password"];
+                // sendEmail({
+                //     from: "kusum.rajbhar@neosoftmail.com",
+                //     to: req.body.email,
+                //     cc: 'kusum.rajbhar@neosoftmail.com',
+                //     subject: 'Confirmation',
+                //     html: 'Thank You For Registering On Neostore'
+                // });
                 console.log('registered', customer);
                 res.status(200).json({ success: true, status_code : 200, message: customer.firstName + ' ' + customer.lastName + ' ' +'registered successfully' })
             }
@@ -73,7 +75,7 @@ export = {
 }
 
 
-  //insertion in db
+//insertion in db
 //   client.query('INSERT INTO cust_registration (first_name,last_name,email,password,id,phone_number,gender) values ($1,$2,$3,$4,$5,$6,$7)',[first_name, last_name, email,password,uuid, phone_number, gender],(err,result) => {
 //   if (err) {
 //       console.error(err);
