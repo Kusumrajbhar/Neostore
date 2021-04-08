@@ -14,7 +14,7 @@ const schema = Joi.object({
     oldPassword: Joi.string().regex(/^[A-Z a-z 0-9]{3,15}$/).required(),
     newPassword: Joi.string().regex(/^[A-Z a-z 0-9]{3,15}$/).required(),
     confirmPassword: Joi.string().equal(Joi.ref("newPassword")).required(),
-    customerId: Joi.string().required(),
+    id: Joi.string().required(),
 });
 
 const change = (req: Request, res: Response) => {
@@ -27,7 +27,7 @@ const change = (req: Request, res: Response) => {
         if (validate.error) {
             res.status(400).json({ success: false, message: validate.error.details[0].message, data: [] });
         } else {
-            Customer.findOne({ id: customerId }, (err, result) => {
+            Customer.findOne({ _id: customerId }, (err, result) => {
                 if (err) {
                     console.log('Customer Id is wrong');
                     res.status(400).json({ success: false, status: 400, message: "Customer Id is not matching with registered customer Id" });
@@ -40,16 +40,17 @@ const change = (req: Request, res: Response) => {
                             if (matchedPass) {
                                 const hashedPassword = await bcrypt.hash(newPassword, 10);
                                 console.log('hashed password', hashedPassword);
-                                Customer.update({ password: hashedPassword },
-                                    { where: { id: customerId } }
-                                )
-                                sendEmail({
-                                    from: "kusum.rajbhar@neosoftmail.com",
-                                    to: req.body.email,
-                                    cc: 'kusum.rajbhar@neosoftmail.com',
-                                    subject: 'Confirmation',
-                                    html: 'Thank You For Registering On Neostore'
-                                });
+                               
+                                Customer.updateOne(
+                                    { _id: customerId },
+                                    { $set: { password: "hashedPassword" } })
+                                // sendEmail({
+                                //     from: "kusum.rajbhar@neosoftmail.com",
+                                //     to: req.body.email,
+                                //     cc: 'kusum.rajbhar@neosoftmail.com',
+                                //     subject: 'Confirmation',
+                                //     html: 'Thank You For Registering On Neostore'
+                                // });
                                 res.status(200).json({ success: true, status: 200, message: 'Password changed Successfully' });
                             }
                             else {
@@ -71,4 +72,6 @@ const change = (req: Request, res: Response) => {
 
 }
 
-export default change;
+export = {
+    change
+}

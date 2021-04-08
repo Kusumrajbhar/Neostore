@@ -38,14 +38,15 @@ const customerLogin = (req: Request, res: Response) => {
                         const token = jwt.sign({ id: result.id, email: result.email }, "mynameiskusumrajbhar");
                         console.log("token : ", token);
                        // let text = 'result';
-                        let objResult = JSON.parse('result'); 
+                        //let objResult = JSON.parse('result'); 
                        // let objResult = Object.entries(result);
-                        console.log('objResult', objResult)
-                        let responseObject = objResult;
-                        responseObject["token"] = token;
+                       let objResult = result.password;
+                       console.log('objResult', objResult)
+                    
+                       let responseObject = result;
                         delete responseObject["password"];
-                        delete responseObject["id"]; 
-                        res.status(200).json({success: true, status: 200, message: 'logged in successfully', Customer_Details: responseObject});
+                        delete responseObject["_id"]; 
+                        res.status(200).json({success: true, status: 200, message: 'logged in successfully', Customer_Details: responseObject, Token: token});
                     }
                     else {
                         res.status(400).json({success: false, status: 400, message: "Please enter correct password"})
@@ -60,22 +61,6 @@ const customerLogin = (req: Request, res: Response) => {
         res.status(400).json({ success: false, message: 'Not Registered User', data: err.message });
     }
 }
-
-// const customer_login = (req: Request, res: Response) => {
-//     const email = req.body.email;
-//     const password = req.body.password;
-//     const validate = schema.validate(req.body);
-//   if(validate.error) {
-//       res.status(400).json({success: false, message: validate.error.details[0].message, data: []});
-//   }
-//   client.query('select*from cust_registration where email = $1',[email], (err, result) => {
-//       try {
-
-//       }
-//       catch {
-//       }
-//   })  
-//}
 
 export = {
     customerLogin
