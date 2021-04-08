@@ -35,7 +35,7 @@ const customerLogin = (req: Request, res: Response) => {
                 else
                     if (matchedData) {
                         console.log('logged In successfully', matchedData);
-                        const token = jwt.sign({ id: result.id, email: result.email }, "mynameiskusumrajbhar");
+                        const token = jwt.sign({ id: result._id, email: result.email }, "mynameiskusumrajbhar");
                         console.log("token : ", token);
                        // let text = 'result';
                         //let objResult = JSON.parse('result'); 

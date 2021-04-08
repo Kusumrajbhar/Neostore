@@ -23,6 +23,15 @@ const change = (req: Request, res: Response) => {
         let newPassword = req.body.newPassword;
         let confirmPassword = req.body.confirmPassword;
         let customerId = req.body.id;
+        // jwt.verify(req.headers.authorization,  "mynameiskusumrajbhar", (err: any, authOutput: any) => {
+        //     if(err) {
+        //         console.error(err);
+        //         res.status(400).json({ success: false, message: "invalid token", data: '' });
+        //     }
+        //     else {
+
+        //     }
+        // })
         const validate = schema.validate(req.body);
         if (validate.error) {
             res.status(400).json({ success: false, message: validate.error.details[0].message, data: [] });
