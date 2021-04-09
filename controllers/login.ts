@@ -14,12 +14,10 @@ const schema = Joi.object({
     password: Joi.string().regex(/^[A-Z a-z 0-9]{3,15}$/).required(),
 });
 
-const customerLogin = (req: Request, res: Response) => {
+const customerLogin = async (req: Request, res: Response) => {
     try {
         const loginEmail = req.body.email;
         const loginPassword = req.body.password;
-         
-    
 
         Customer.findOne({ email: loginEmail }, (err, result) => {                  //findOne to get one document
             console.log('result', result);
@@ -27,29 +25,28 @@ const customerLogin = (req: Request, res: Response) => {
             if (validate.error) {
                 res.status(400).json({ success: false, message: validate.error.details[0].message, data: [] });
             }
-            bcrypt.compare(loginPassword, result.password, (err, matchedData) => {
+            return bcrypt.compare(loginPassword, result.password, (err, matchedData) => {
                 if (err) {
                     console.log(" wrong password");
-                    res.status(400).json({ message: 'enter correct password' });
+                    return res.status(400).json({ message: 'enter correct password' });
                 }
                 else
                     if (matchedData) {
                         console.log('logged In successfully', matchedData);
                         const token = jwt.sign({ id: result._id, email: result.email }, "mynameiskusumrajbhar");
                         console.log("token : ", token);
-                       // let text = 'result';
-                        //let objResult = JSON.parse('result'); 
-                       // let objResult = Object.entries(result);
-                       let objResult = result.password;
-                       console.log('objResult', objResult)
-                    
-                       let responseObject = result;
-                        delete responseObject["password"];
-                        delete responseObject["_id"]; 
-                        res.status(200).json({success: true, status: 200, message: 'logged in successfully', Customer_Details: responseObject, Token: token});
+                        
+                        let objResult = result.password;
+                        console.log('objResult', objResult)
+
+                        let responseObject = {firstName: result.firstName, lastName: result.lastName, email: result.email, phoneNumber: result.phoneNumber, gender: result.gender}
+                       
+                        console.log('res1',responseObject);
+                            return res.status(200).json({ success: true, status: 200, message: 'logged in successfully', Customer_Details: responseObject, Token: token });
+                        
                     }
                     else {
-                        res.status(400).json({success: false, status: 400, message: "Please enter correct password"})
+                        return res.status(400).json({ success: false, status: 400, message: "Please enter correct password" })
                     }
             })
 
@@ -58,7 +55,7 @@ const customerLogin = (req: Request, res: Response) => {
     }
     catch (err) {
         console.log(err);
-        res.status(400).json({ success: false, message: 'Not Registered User', data: err.message });
+        return res.status(400).json({ success: false, message: 'Not Registered User', data: err.message });
     }
 }
 
