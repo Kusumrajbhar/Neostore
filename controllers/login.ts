@@ -42,7 +42,7 @@ const customerLogin = async (req: Request, res: Response) => {
                         let responseObject = {firstName: result.firstName, lastName: result.lastName, email: result.email, phoneNumber: result.phoneNumber, gender: result.gender}
                        
                         console.log('res1',responseObject);
-                            return res.status(200).json({ success: true, status: 200, message: 'logged in successfully', Customer_Details: responseObject, Token: token });
+                            return res.status(200).json({ success: true, status: 200, message: 'logged in successfully', customerDetails: responseObject, token: token });
                         
                     }
                     else {
