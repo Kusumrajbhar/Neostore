@@ -2,7 +2,7 @@ import express from 'express';
 import { Request, Response } from 'express';
 import Joi, { string } from 'joi';
 import jwt from 'jsonwebtoken';
-import Customer from '../models/customerRegistrationSchema';
+import Customer from '../../models/customerRegistrationSchema';
 import sendEmail from './sendMail-configfile';
 
 const app = express();
@@ -12,16 +12,9 @@ const schema = Joi.object({
     email: Joi.string().regex(/^[A-Za-z]{3,}[.][a-z]{2,}@[a-z]{2,}[.]{1}[a-z.]{2,}$/).required(),
 });
 
-// function generate(){
-//     let num = '1234567890';
-//     for(let i=0; i<4; i++){
-//         let OTP = num[Math.floor(Math.random()*10)];
-//         let otp = num[OTP]
-//         console.log('OTP', otp);
-//     }
-// }
-//  generate();
-// console.log('otp')
+//Generating Random Password
+let OTP = [Math.floor(Math.random()*10000 + 1)];
+console.log('otp', OTP);
 
 const forgotPassword = (req: Request, res: Response) => {
     try {
@@ -32,7 +25,7 @@ const forgotPassword = (req: Request, res: Response) => {
             }
             else {
                 if (authOutput) {
-                    // let email = req.body.email;
+                    let customerId  = authOutput.id;
                     const validate = schema.validate(req.body);
                     if (validate.error) {
                         res.status(400).json({ success: false, message: validate.error.details[0].message, data: [] });
@@ -44,12 +37,42 @@ const forgotPassword = (req: Request, res: Response) => {
                             }
                             else {
                                 if (result) {
+                                    console.log('object', result);
+                                   // Object.assign(result, {OTP: OTP});
+
+                                //    const customerRegistration = new Customer({
+                                //     OTP: OTP,
+                                // })
+
+                                // Customer.create(customerRegistration,(err, customer) => {
+                                //     if (err) {
+                                //         console.log(err);
+                                //         res.status(400).json({ success: false, message: 'Not Registered', data: err.message });
+                                //     }
+                                //     else {
+                                //         console.log('saved');
+
+                                //     }
+                                //     })
+
+                                    Customer.updateOne(
+                                        { _id: customerId },
+                                        { $set: { OTP: OTP } })
+                                        .then(result => {
+                                            if (result) {
+                                                console.log('updated');
+                                            }
+                                            else {
+                                                console.log('otp not updated');
+                                            }
+                                        })
+
                                     // sendEmail({
                                     //     from: "kusum.rajbhar@neosoftmail.com",
                                     //     to: req.body.email,
                                     //     cc: 'kusum.rajbhar@neosoftmail.com',
                                     //     subject: 'OTP for recovering password',
-                                    //     html: ''
+                                    //     html: `OTP`
                                     // })
                                 }
                                 else {

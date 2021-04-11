@@ -2,7 +2,7 @@ import express from 'express';
 import { Request, Response } from 'express';
 import Joi from 'joi';
 import jwt from 'jsonwebtoken';
-import Customer from '../models/customerRegistrationSchema';
+import Customer from '../../models/customerRegistrationSchema';
 import bcrypt from 'bcrypt';
 
 const app = express();

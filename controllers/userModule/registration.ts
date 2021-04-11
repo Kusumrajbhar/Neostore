@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import Joi from 'joi';
 import bcrypt from 'bcrypt';
 import sendEmail from './sendMail-configfile';
-import Customer from '../models/customerRegistrationSchema';
+import Customer from '../../models/customerRegistrationSchema';
 
 const uuid = uuidv4();
 
