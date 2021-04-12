@@ -9,7 +9,7 @@ const app = express();
 app.use(express.json());
 
 const schema = Joi.object({
-    otp: Joi.string().regex(/^[0-9]{4}$/).required(),
+    otp: Joi.string().regex(/^[0-9]{1,}$/).required(),
     newPassword: Joi.string().regex(/^[A-Z a-z 0-9]{3,15}$/).required(),
     confirmPassword: Joi.string().equal(Joi.ref("newPassword")).required(),
 });
