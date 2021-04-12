@@ -52,13 +52,13 @@ const forgotPassword = (req: Request, res: Response) => {
                                             }
                                         })
 
-                                    // sendEmail({
-                                    //     from: "kusum.rajbhar@neosoftmail.com",
-                                    //     to: req.body.email,
-                                    //     cc: 'kusum.rajbhar@neosoftmail.com',
-                                    //     subject: 'OTP for recovering password',
-                                    //     html: `OTP`,
-                                    // })
+                                    sendEmail({
+                                        from: "kusum.rajbhar@neosoftmail.com",
+                                        to: req.body.email,
+                                        cc: 'kusum.rajbhar@neosoftmail.com',
+                                        subject: 'OTP for recovering password',
+                                        html: `${OTP}`,
+                                    })
                                 }
                                 else {
                                     res.status(400).json({ success: false, status: 400, message: "Please enter correct Email Id" })

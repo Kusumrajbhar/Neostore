@@ -36,7 +36,7 @@ const recoverForgotPassword = async (req: Request, res: Response) => {
                                 console.log('Customer Id is wrong');
                                 res.status(400).json({ success: false, status: 400, message: "Email Id is not matching with registered customer Email Id" });
                             } else
-                                if (otp === result.OTP) {
+                                if (otp == result.OTP) {
                                     const hashedPassword = await bcrypt.hash(newPassword, 10);
                                     console.log('hashed password', hashedPassword);
                                     Customer.updateOne(
@@ -54,9 +54,9 @@ const recoverForgotPassword = async (req: Request, res: Response) => {
                                         }
                                         )
                                 }
-                            // else {
-                            //     res.status(400).json({ success: false, status: 400, message: "Please enter correct password" });
-                            // }
+                            else {
+                                res.status(400).json({ success: false, status: 400, message: "Please enter correct otp" });
+                            }
                         })
                     }
             }
