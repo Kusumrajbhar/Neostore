@@ -23,12 +23,20 @@ const registrationSchema = new mongoose.Schema({
         required: true,
     },
     gender: {
-        type: String,
+        type: Boolean,
         required: true,
     },
     OTP: {
         type: String,
     },
+    DOB: {
+        type: String,
+        required: true,
+    },
+    profileImage: {
+        type: Buffer,
+
+    }
 })
 
 const Customer = mongoose.model<any>("Customer", registrationSchema);

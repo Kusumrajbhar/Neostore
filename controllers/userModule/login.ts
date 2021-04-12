@@ -55,7 +55,7 @@ const customerLogin = async (req: Request, res: Response) => {
     }
     catch (err) {
         console.log(err);
-        return res.status(400).json({ success: false, message: 'Not Registered User', data: err.message });
+        return res.status(400).json({ success: false, message: 'Customer is not Registered User', data: err.message });
     }
 }
 
