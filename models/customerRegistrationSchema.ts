@@ -27,7 +27,7 @@ const registrationSchema = new mongoose.Schema({
         required: true,
     },
     OTP: {
-        type: String,
+        type: Number,
     },
     DOB: {
         type: String,

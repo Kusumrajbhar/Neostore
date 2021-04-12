@@ -7,6 +7,9 @@ import changePassword from '../controllers/userModule/changePassword';
 import forgotPassword from '../controllers/userModule/forgotPassword';
 import recoverForgotPassword from '../controllers/userModule/recoverPassword';
 import userProfile from '../controllers/myAccountModule/userProfile';
+import editProfile from '../controllers/myAccountModule/editProfile';
+import addAddress from '../controllers/myAccountModule/addAddress';
+import getAddress from '../controllers/myAccountModule/getAddress';
 import upload from '../controllers/userModule/multer';
 
 
@@ -23,5 +26,8 @@ router.post('/recoverPassword', recoverForgotPassword.recoverForgotPassword);
 
 //userProfile
 router.get('/userProfile', userProfile.getUserProfile);
+router.post('/editProfile', editProfile.getEditProfile);
+router.post('/addAddress', addAddress.address);
+router.get('/getAddress', getAddress.getCustomerAddress);
 
 export default router;

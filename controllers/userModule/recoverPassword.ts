@@ -16,6 +16,7 @@ const schema = Joi.object({
 
 const recoverForgotPassword = async (req: Request, res: Response) => {
     try {
+        let otp = req.body.otp;
         let newPassword = req.body.newPassword;
         jwt.verify(req.headers.authorization, "mynameiskusumrajbhar", (err: any, authOutput: any) => {
             let customerId = authOutput.id;
@@ -29,12 +30,13 @@ const recoverForgotPassword = async (req: Request, res: Response) => {
                     res.status(400).json({ success: false, message: validate.error.details[0].message, data: [] });
                 } else
                     if (authOutput) {
+
                         Customer.findOne({ _id: customerId }, async (err: any, result: any) => {
                             if (err) {
                                 console.log('Customer Id is wrong');
                                 res.status(400).json({ success: false, status: 400, message: "Email Id is not matching with registered customer Email Id" });
                             } else
-                                if (result) {
+                                if (otp === result.OTP) {
                                     const hashedPassword = await bcrypt.hash(newPassword, 10);
                                     console.log('hashed password', hashedPassword);
                                     Customer.updateOne(

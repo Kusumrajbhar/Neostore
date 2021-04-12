@@ -13,7 +13,7 @@ const schema = Joi.object({
 });
 
 //Generating Random Password
-let OTP = [Math.floor(Math.random()*10000 + 1)];
+let OTP = Math.floor(Math.random()*10000 + 1);
 console.log('otp', OTP);
 
 const forgotPassword = (req: Request, res: Response) => {
@@ -40,24 +40,9 @@ const forgotPassword = (req: Request, res: Response) => {
                                     console.log('object', result);
                                    // Object.assign(result, {OTP: OTP});
 
-                                //    const customerRegistration = new Customer({
-                                //     OTP: OTP,
-                                // })
-
-                                // Customer.create(customerRegistration,(err, customer) => {
-                                //     if (err) {
-                                //         console.log(err);
-                                //         res.status(400).json({ success: false, message: 'Not Registered', data: err.message });
-                                //     }
-                                //     else {
-                                //         console.log('saved');
-
-                                //     }
-                                //     })
-
                                     Customer.updateOne(
                                         { _id: customerId },
-                                        { $set: { OTP: OTP } })
+                                        { $set: { OTP: OTP} })
                                         .then(result => {
                                             if (result) {
                                                 console.log('updated');
@@ -72,7 +57,7 @@ const forgotPassword = (req: Request, res: Response) => {
                                     //     to: req.body.email,
                                     //     cc: 'kusum.rajbhar@neosoftmail.com',
                                     //     subject: 'OTP for recovering password',
-                                    //     html: `OTP`
+                                    //     html: `OTP`,
                                     // })
                                 }
                                 else {
@@ -94,3 +79,17 @@ const forgotPassword = (req: Request, res: Response) => {
 export = {
     forgotPassword
 }
+
+ //    const customerRegistration = new Customer({
+                                //     OTP: OTP,
+                                // })
+ // Customer.create(customerRegistration,(err, customer) => {
+                                //     if (err) {
+                                //         console.log(err);
+                                //         res.status(400).json({ success: false, message: 'Not Registered', data: err.message });
+                                //     }
+                                //     else {
+                                //         console.log('saved');
+
+                                //     }
+                                //     })
