@@ -15,7 +15,7 @@ const getCustomerAddress = (req: Request, res: Response) => {
         }
         else {
             const customerId = authOutput.id;
-            Address.findOne({customer_id: customerId},{_id: 0})
+            Address.findOne({customer_id: customerId},{_id: 0, __v: 0})
             .then(result => {
                 //console.log('result', result);
                 if (result) {

@@ -22,13 +22,10 @@ const getEditProfile = (req: Request, res: Response) => {
         }
         else {
             const customerId = authOutput.id;
-            Customer.findOne({ _id: customerId }, (err: any, result: any) => {
-                if (err) {
-                    console.log('No data found');
-                    return res.status(400).json({ success: false, status: 400, message: "No data found" });
-                }
-                else {
-
+            Customer.findOne({ _id: customerId },{_id: 0, __v: 0})
+            .then(result => {
+               // console.log('result', result);
+                if (result) {
                     console.log('userProfile', result);
                     Customer.findOneAndUpdate(
                         { _id: customerId },
@@ -36,7 +33,7 @@ const getEditProfile = (req: Request, res: Response) => {
                         .then(output => {
                             if (output) {
                                 console.log('updated profile', output);
-                                res.status(200).json({ success: true, status: 200, message: 'User Profile Updated Successfully', Customer_details: output });
+                                res.status(200).json({ success: true, status: 200, message: 'User Profile Updated Successfully' });
                             }
                             else {
                                 console.log('User Profile not Updated');
@@ -44,7 +41,15 @@ const getEditProfile = (req: Request, res: Response) => {
                             }
                         })
                 }
-            });
+                else {
+                    console.log('No data found');
+                    return res.status(400).json({ success: false, status: 400, message: "No data found" });
+                }
+
+            }
+
+            )
+        
         }
     });
 }
@@ -52,3 +57,8 @@ const getEditProfile = (req: Request, res: Response) => {
 export = {
     getEditProfile
 }
+
+
+
+
+    

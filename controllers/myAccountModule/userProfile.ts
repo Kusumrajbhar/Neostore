@@ -25,7 +25,7 @@ const getUserProfile = (req: Request, res: Response) => {
             //         return res.status(200).json({ success: true, status: 200, Customer_Profile: userProfile});
             //     }
             // })
-            Customer.findOne({ _id: customerId}, {_id:0, password: 0})
+            Customer.findOne({ _id: customerId}, {_id:0, password: 0, __v: 0, OTP: 0})
             .then(result => {
                 if (result) {
                     console.log('userProfile', result);
