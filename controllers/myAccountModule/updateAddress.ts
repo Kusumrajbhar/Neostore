@@ -28,7 +28,7 @@ const updateCustomerAddress = (req: Request, res: Response) => {
                     console.log('customerAddress', result);
                     Address.findOneAndUpdate(
                         { customer_id: customerId },
-                        { $set: { address: address, pincode: pincode, city: city, state: state, country: country } })
+                        { $set: { address: address, pincode: pincode, city: city, state: state, country: country, updatedAt: new Date()} })
                         .then(output => {
                             if (output) {
                                 console.log('updated Address', output);

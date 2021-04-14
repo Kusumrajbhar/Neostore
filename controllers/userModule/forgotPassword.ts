@@ -59,9 +59,10 @@ const forgotPassword = (req: Request, res: Response) => {
                                         subject: 'OTP for recovering password',
                                         html: `${OTP}`,
                                     })
+                                   return res.status(200).json({ success: true, status: 200, message: "Otp sent on your Email Id" });
                                 }
                                 else {
-                                    res.status(400).json({ success: false, status: 400, message: "Please enter correct Email Id" })
+                                  return  res.status(400).json({ success: false, status: 400, message: "Please enter correct Email Id" });
                                 }
                             }
                         })

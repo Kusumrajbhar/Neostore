@@ -44,6 +44,9 @@ const address = (req: Request, res: Response) => {
                         res.status(400).json({ success: false, message: 'Customer Address not registered', data: err.message });
                     }
                     else {
+                        // Address.updateOne(
+                        //     { customer_id: id1 },
+                        //     { $setOnInsert: {createdAt: new Date()} })
                         console.log('registered', addressResult);
                         res.status(200).json({ success: true, status_code: 200, message: 'Customer Address registered successfully' })
                     }

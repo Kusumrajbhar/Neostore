@@ -32,7 +32,7 @@ const getEditProfile = (req: Request, res: Response) => {
                     console.log('userProfile', result);
                     Customer.findOneAndUpdate(
                         { _id: customerId },
-                        { $set: { firstName: firstName, lastName: lastName, email: email, phoneNumber: phoneNumber, gender: gender, DOB: DOB } })
+                        { $set: { firstName: firstName, lastName: lastName, email: email, phoneNumber: phoneNumber, gender: gender, DOB: DOB, updatedAt: new Date()} })
                         .then(output => {
                             if (output) {
                                 console.log('updated profile', output);

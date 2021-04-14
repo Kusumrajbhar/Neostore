@@ -14,15 +14,26 @@ const getUserProfile = (req: Request, res: Response) => {
         }
         else {
             const customerId = authOutput.id;
-            Customer.findOne({ _id: customerId }, (err: any, result: any) => {
-                if (err) {
-                    console.log('No data found');
-                    return res.status(400).json({ success: false, status: 400, message: "No data found" });
+            // Customer.findOne({ _id: customerId }, (err: any, result: any) => {
+            //     if (err) {
+            //         console.log('No data found');
+            //         return res.status(400).json({ success: false, status: 400, message: "No data found" });
+            //     }
+            //     else {
+            //         console.log('userProfile', result);
+            //         let userProfile = {firstName: result.firstName, lastName: result.lastName, email: result.email, phoneNumber: result.phoneNumber, gender: result.gender, DOB: result.DOB};
+            //         return res.status(200).json({ success: true, status: 200, Customer_Profile: userProfile});
+            //     }
+            // })
+            Customer.findOne({ _id: customerId}, {_id:0, password: 0})
+            .then(result => {
+                if (result) {
+                    console.log('userProfile', result);
+                    return res.status(200).json({ success: true, status: 200, Customer_Profile: result});
                 }
                 else {
-                    console.log('userProfile', result);
-                    let userProfile = {firstName: result.firstName, lastName: result.lastName, email: result.email, phoneNumber: result.phoneNumber, gender: result.gender, DOB: result.DOB};
-                    return res.status(200).json({ success: true, status: 200, Customer_Profile: userProfile});
+                    console.log('No data found');
+                 return res.status(400).json({ success: false, status: 400, message: "No data found" });
                 }
             })
         }

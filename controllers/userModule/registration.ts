@@ -17,9 +17,9 @@ const schemaJoi = Joi.object({
     email: Joi.string().regex(/^[A-Za-z]{3,}[.][a-z]{2,}@[a-z]{2,}[.]{1}[a-z.]{2,}$/).required(),
     password: Joi.string().regex(/^[A-Z a-z 0-9]{3,15}$/).required(),
     phone_number: Joi.number().min(10).required(),
-    //gender: Joi.boolean().valid(1,0).required(),
+    gender: Joi.boolean().required(),
     dob: Joi.string().required(),
-    gender: Joi.string().regex(/^[a-zA-Z]{4,}$/).required(),
+   // gender: Joi.string().regex(/^[a-zA-Z]{4,}$/).required(),
 });
 
 
@@ -28,6 +28,7 @@ const getRegistration = async (req: Request, res: Response) => {
 
     try {
         const validate = schemaJoi.validate(req.body);
+        console.log('validate error', validate.error);
         if (validate.error) {
             res.status(400).json({ success: false, message: validate.error.details[0].message, data: [] });
         }
@@ -36,7 +37,8 @@ const getRegistration = async (req: Request, res: Response) => {
         //hashing of password
         const hashedPassword = await bcrypt.hash(customerPassword, 10);
         console.log('bcrypt password', hashedPassword);
-
+        
+        console.log('gender', req.body.gender, typeof (req.body.gender));
         const customerRegistration = new Customer({
             firstName: req.body.first_name,
             lastName: req.body.last_name,
@@ -48,13 +50,14 @@ const getRegistration = async (req: Request, res: Response) => {
             profileImage: req.file.filename,
         })
 
+
         //const result = await customerRegistration.save();
-        Customer.create(customerRegistration,(err, customer) => {
+       return Customer.create(customerRegistration,(err, customer) => {
             if (err) {
                 console.log(err);
                 res.status(400).json({ success: false, message: 'Not Registered', data: err.message });
             }
-            else {
+           // else {
                 // sendEmail({
                 //     from: "kusum.rajbhar@neosoftmail.com",
                 //     to: req.body.email,
@@ -63,13 +66,13 @@ const getRegistration = async (req: Request, res: Response) => {
                 //     html: 'Thank You For Registering On Neostore'
                 // });
                 console.log('registered', customer);
-                res.status(200).json({ success: true, status_code : 200, message: customer.firstName + ' ' + customer.lastName + ' ' +'registered successfully' })
-            }
+                return res.status(200).json({ success: true, status_code : 200, message: customer.firstName + ' ' + customer.lastName + ' ' +'registered successfully' })
+           // }
         });
     }
     catch (err) {
-        console.log(err);
-        res.status(400).json({ success: false, message: 'Not Registered', data: err.message });
+        console.log('error from catch',err);
+        return res.status(400).json({ success: false, message: 'Not Registered', data: err.message });
     }
 }
 

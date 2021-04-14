@@ -39,7 +39,7 @@ const customerLogin = async (req: Request, res: Response) => {
                         let objResult = result.password;
                         console.log('objResult', objResult)
 
-                        let responseObject = {firstName: result.firstName, lastName: result.lastName, email: result.email, phoneNumber: result.phoneNumber, gender: result.gender}
+                        let responseObject = {firstName: result.firstName, lastName: result.lastName, email: result.email, phoneNumber: result.phoneNumber, gender: result.gender}  // profileImage: result.profile
                        
                         console.log('res1',responseObject);
                             return res.status(200).json({ success: true, status: 200, message: 'logged in successfully', customerDetails: responseObject, token: token });
