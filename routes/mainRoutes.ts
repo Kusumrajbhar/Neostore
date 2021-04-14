@@ -10,6 +10,7 @@ import userProfile from '../controllers/myAccountModule/userProfile';
 import editProfile from '../controllers/myAccountModule/editProfile';
 import addAddress from '../controllers/myAccountModule/addAddress';
 import getAddress from '../controllers/myAccountModule/getAddress';
+import updateAddress from '../controllers/myAccountModule/updateAddress';
 import upload from '../controllers/userModule/multer';
 
 
@@ -18,7 +19,7 @@ const app = express();
 app.use(bodyParser.json());
 
 //userModule
-router.post('/welcome',  registration.getRegistration);    //upload.single('profileImage'),
+router.post('/welcome',upload.single('profileImage'), registration.getRegistration);    //upload.single('profileImage'),
 router.post('/login', login.customerLogin);
 router.post('/changePassword', changePassword.change);
 router.post('/forgotPassword', forgotPassword.forgotPassword);
@@ -29,5 +30,6 @@ router.get('/userProfile', userProfile.getUserProfile);
 router.post('/editProfile', editProfile.getEditProfile);
 router.post('/addAddress', addAddress.address);
 router.get('/getAddress', getAddress.getCustomerAddress);
+router.post('/updateAddress', updateAddress.updateCustomerAddress);
 
 export default router;

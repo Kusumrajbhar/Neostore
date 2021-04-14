@@ -15,7 +15,7 @@ const getCustomerAddress = (req: Request, res: Response) => {
         }
         else {
             const customerId = authOutput.id;
-            Address.findOne({ customer_id: customerId }, (err: any, result: any) => {
+            Address.findOne({ customer_id: customerId }, {_id: 0}, (err: any, result: any) => {
                 if (err) {
                     console.log('No data found');
                     return res.status(400).json({ success: false, status: 400, message: "No data found" });
@@ -23,7 +23,7 @@ const getCustomerAddress = (req: Request, res: Response) => {
                 else {
                     console.log('userProfile', result);
                     let customerAddress = {address: result.address, pincode: result.pincode, city: result.city, state: result.state, country: result.country };
-                    return res.status(200).json({ success: true, status: 200, Customer_Profile: customerAddress });
+                    return res.status(200).json({ success: true, status: 200, Customer_address: customerAddress });
                 }
             })
         }

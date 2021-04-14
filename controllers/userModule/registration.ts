@@ -17,9 +17,9 @@ const schemaJoi = Joi.object({
     email: Joi.string().regex(/^[A-Za-z]{3,}[.][a-z]{2,}@[a-z]{2,}[.]{1}[a-z.]{2,}$/).required(),
     password: Joi.string().regex(/^[A-Z a-z 0-9]{3,15}$/).required(),
     phone_number: Joi.number().min(10).required(),
-    gender: Joi.boolean().valid(1,0).required(),
+    //gender: Joi.boolean().valid(1,0).required(),
     dob: Joi.string().required(),
-    //gender: Joi.string().regex(/^[a-zA-Z]{4,}$/).required(),
+    gender: Joi.string().regex(/^[a-zA-Z]{4,}$/).required(),
 });
 
 
@@ -45,7 +45,7 @@ const getRegistration = async (req: Request, res: Response) => {
             phoneNumber: req.body.phone_number,
             gender: req.body.gender,
             DOB: req.body.dob,
-            //profileImage: req.file.filename,
+            profileImage: req.file.filename,
         })
 
         //const result = await customerRegistration.save();

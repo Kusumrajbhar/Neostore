@@ -23,7 +23,7 @@ const registrationSchema = new mongoose.Schema({
         required: true,
     },
     gender: {
-        type: Boolean,
+        type: String,     //Boolean
         required: true,
     },
     OTP: {
@@ -35,6 +35,7 @@ const registrationSchema = new mongoose.Schema({
     },
     profileImage: {
         type: Buffer,
+        required: true,
 
     }
 })

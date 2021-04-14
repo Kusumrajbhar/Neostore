@@ -33,10 +33,10 @@ const getEditProfile = (req: Request, res: Response) => {
                     Customer.findOneAndUpdate(
                         { _id: customerId },
                         { $set: { firstName: firstName, lastName: lastName, email: email, phoneNumber: phoneNumber, gender: gender, DOB: DOB } })
-                        .then(result => {
-                            if (result) {
-                                console.log('updated profile', result);
-                                res.status(200).json({ success: true, status: 200, message: 'User Profile Updated Successfully', Customer_details: result });
+                        .then(output => {
+                            if (output) {
+                                console.log('updated profile', output);
+                                res.status(200).json({ success: true, status: 200, message: 'User Profile Updated Successfully', Customer_details: output });
                             }
                             else {
                                 console.log('User Profile not Updated');

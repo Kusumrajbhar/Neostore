@@ -2,7 +2,9 @@ import mongoose from 'mongoose';
 
 const schemaAddress = new mongoose.Schema({
     customer_id: {
+        //type: Schema.Types.ObjectId,
         type: String,
+        ref: 'Customer',
     },
     address: {
         type: String,
