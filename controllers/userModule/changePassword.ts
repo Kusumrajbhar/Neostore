@@ -1,9 +1,9 @@
 import express from 'express';
 import { Request, Response } from 'express';
-import Customer from '../../models/customerRegistrationSchema';
+import Customer from '../../models/customerModel/customerRegistrationSchema';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import sendEmail from '../userModule/sendMail-configfile';
+import sendEmail from '../../configFiles/sendMail-configfile';
 import Joi from 'joi';
 
 

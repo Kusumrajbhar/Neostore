@@ -3,8 +3,8 @@ import { Request, Response } from 'express';
 import { v4 as uuidv4 } from 'uuid';
 import Joi from 'joi';
 import bcrypt from 'bcrypt';
-import sendEmail from './sendMail-configfile';
-import Customer from '../../models/customerRegistrationSchema';
+import sendEmail from '../../configFiles/sendMail-configfile';
+import Customer from '../../models/customerModel/customerRegistrationSchema';
 
 
 const app = express();

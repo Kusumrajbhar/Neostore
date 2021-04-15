@@ -2,8 +2,8 @@ import express from 'express';
 import { Request, Response } from 'express';
 import Joi, { string } from 'joi';
 import jwt from 'jsonwebtoken';
-import Customer from '../../models/customerRegistrationSchema';
-import sendEmail from './sendMail-configfile';
+import Customer from '../../models/customerModel/customerRegistrationSchema';
+import sendEmail from '../../configFiles/sendMail-configfile';
 
 const app = express();
 app.use(express.json());

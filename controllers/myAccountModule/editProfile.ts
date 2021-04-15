@@ -1,7 +1,7 @@
 import express from 'express';
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
-import Customer from '../../models/customerRegistrationSchema';
+import Customer from '../../models/customerModel/customerRegistrationSchema';
 
 const app = express();
 app.use(express.json());

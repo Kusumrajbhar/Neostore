@@ -4,6 +4,7 @@ import mainRoutes from './routes/mainRoutes';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import { getParsedCommandLineOfConfigFile } from 'typescript';
+import productRoutes from './routes/productRoutes';
 
 const app = express();
 app.use(express.json());
@@ -12,6 +13,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.use(mainRoutes);
+app.use(productRoutes);
 
 mongoose.connect("mongodb://localhost:27017/main", { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
     if(!err)

@@ -2,7 +2,7 @@ import express from 'express';
 import { Request, Response } from 'express';
 import { v4 as uuidv4 } from 'uuid';
 import Joi, { string } from 'joi';
-import Customer from '../../models/customerRegistrationSchema';
+import Customer from '../../models/customerModel/customerRegistrationSchema';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
