@@ -8,7 +8,7 @@ const schemaProductColor = new mongoose.Schema({
     color_code : {
         type : String,
         required : true,
-    }
+    },
 })
 
 
