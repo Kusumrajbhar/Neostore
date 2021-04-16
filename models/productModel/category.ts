@@ -4,6 +4,10 @@ const schemaCategory = new mongoose.Schema({
     category_name : {
         type : String,
         required : true,
+    },
+    product_image : {
+        type : String,
+        required : true,
     }
 })
 

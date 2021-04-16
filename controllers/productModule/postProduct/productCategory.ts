@@ -3,7 +3,8 @@ import {Request, Response} from 'express';
 
 const postCategory = (req:Request, res:Response) => {
     const productCategory = new CategoryModel({
-        category_name : req.body.category_name
+        category_name : req.body.category_name,
+        product_image : req.file.filename
     })
 
     productCategory.save()
