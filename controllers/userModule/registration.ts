@@ -57,17 +57,17 @@ const getRegistration = async (req: Request, res: Response) => {
                 console.log(err);
                 res.status(400).json({ success: false, message: 'Not Registered', data: err.message });
             }
-           // else {
-                // sendEmail({
-                //     from: "kusum.rajbhar@neosoftmail.com",
-                //     to: req.body.email,
-                //     cc: 'kusum.rajbhar@neosoftmail.com',
-                //     subject: 'Confirmation',
-                //     html: 'Thank You For Registering On Neostore'
-                // });
+            else {
+                sendEmail({
+                    from: "kusum.rajbhar@neosoftmail.com",
+                    to: req.body.email,
+                    cc: 'kusum.rajbhar@neosoftmail.com',
+                    subject: 'Confirmation',
+                    html: 'Thank You For Registering On Neostore'
+                });
                 console.log('registered', customer);
                 return res.status(200).json({ success: true, status_code : 200, message: customer.firstName + ' ' + customer.lastName + ' ' +'registered successfully' })
-           // }
+            }
         });
     }
     catch (err) {
