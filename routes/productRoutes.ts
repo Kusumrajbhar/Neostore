@@ -33,9 +33,9 @@ router.get('/allProduct', allProductList.getAllProductList);
 router.get('/allSubImages', allSubImages.getAllSubImages);
 
 //route for get
-router.get('/getCategory', getCategory.getProductCategory);
-router.get('/getColor', getProductColor.getColorOfProduct);
-router.get('/getProduct', getProductList.getProduct_color);
-router.get('/getSubImages', getSubImages.getProductSubImages);
+router.get('/getCategory/:id', getCategory.getProductCategory);
+router.get('/getColor/:id', getProductColor.getColorOfProduct);
+router.get('/getProduct/:id/:category_id/:color_id/:subImages_id', getProductList.getProduct_color);
+router.get('/getSubImages/:id', getSubImages.getProductSubImages);
 
 export default router;

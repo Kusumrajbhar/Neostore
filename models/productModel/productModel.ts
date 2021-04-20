@@ -3,11 +3,15 @@ import mongoose from 'mongoose';
 const schemaProduct = new mongoose.Schema({
     category_id : {
         type: String,
-        ref: 'postCategory',
+        ref: 'Category',
     },
     color_id: {
         type: String,
-        ref: 'postColor',
+        ref: 'ProductColor',
+    },
+    subImages_id: {
+        type: String,
+        ref: 'SubImages',
     },
     product_name: {
        type: String,

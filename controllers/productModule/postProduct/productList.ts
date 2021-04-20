@@ -5,6 +5,7 @@ const postProduct = (req:Request,res:Response) => {
     const postProductList = new ProductModel({
         category_id :req.body.category_id,
         color_id:req.body.color_id,
+        subImages_id:req.body.subImages_id,
         product_name:req.body.product_name,
         product_image:req.file.filename,
         product_cost:req.body.product_cost,
